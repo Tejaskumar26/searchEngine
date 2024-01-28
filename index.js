@@ -28,6 +28,10 @@ app.post('/get-links', async (req, res) => {
     }
 })
 
+app.get('/', (req, res) => {
+    return res.status(200).json({ Message: 'Server working' });
+})
+
 
 app.listen(3003, () => {
     console.log("Server running on 3033");
