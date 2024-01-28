@@ -2,10 +2,19 @@ const express = require('express');
 const app = express()
 const axios = require('axios');
 const cheerio = require('cheerio');
+const bodyParser = require('body-parser');
+const cors = require("cors");
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/get-links', async (req, res) => {
     try {
-        const query = req.query.search;
+        const query = req.body.search;
+        if (!query) {
+            res.status(400).json({ error: "Search can't be empty" });
+        }
         const searchUrl = `https://www.google.com/search?q=${query}`;
         const response = await axios.get(searchUrl);
 
